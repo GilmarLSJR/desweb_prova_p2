@@ -1,0 +1,13 @@
+# Padroniza finais de linha como LF (Unix)
+* text=auto eol=lf
+
+# Força arquivos específicos a usarem LF
+*.js text eol=lf
+*.json text eol=lf
+*.env text eol=lf
+*.sql text eol=lf
+*.md text eol=lf
+
+# Arquivos de configuração
+.gitattributes text eol=lf
+.gitignore text eol=lf
