@@ -1,0 +1,9 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never", // Desativa correções automáticas genéricas
+    "source.fixAll.eslint": "always" // Sempre aplica correções automáticas do ESLint ao salvar
+  },
+  "editor.formatOnSave": true, // Ativa a formatação automática ao salvar o arquivo
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Define o Prettier como o formatador padrão do VS Code
+  
+}

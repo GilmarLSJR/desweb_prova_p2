@@ -1,0 +1,9 @@
+# Ignora toda a pasta node_modules
+node_modules/
+
+# Ignora arquivos de build
+dist/
+build/
+
+# Ignora um arquivo específico
+package-lock.json
