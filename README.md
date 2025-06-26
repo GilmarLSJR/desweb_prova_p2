@@ -1,11 +1,9 @@
 # Descrição do Projeto
+
 API RESTful para controle de adoção de PETS
 
-
-
-
-
 # Tecnologias Utilizadas
+
 - Node.js
 - Express
 - MySQL
@@ -19,11 +17,8 @@ API RESTful para controle de adoção de PETS
 - GitHub
 - Nodemon
 
-
-
-
-
 # Instruções de Instalação do ESLint
+
 ```bash
 npm install eslint --save-dev # Instalação das dependências
 npm init @eslint/confi g@latest # Assistente para configuração
@@ -40,15 +35,18 @@ npm init @eslint/confi g@latest # Assistente para configuração
 8. eslint, @eslint/js, globals / Would you like to install them now? → Selecione a opção “no”
 
 # Configurações adicionais do ESLint
+
 1. Configurar o arquivo .eslint.config.mjs corretamente
 
 # Como Usar o ESLint - Execução manual via termninal
+
 ```bash
 npx eslint server.js # Roda o eslint no server.js
 npx eslint . --fix # Tenta corrigir erros automaticamente
 ```
 
 # Como Usar o ESLint - Execução manual via scripts no package.json
+
 ```bash
 npm run lint # Roda o eslint
 npm run lint:fix # Roda o eslint e tenta corrigir erros automaticamente
@@ -56,28 +54,29 @@ npm run lint:report # Gera um relatório em JSON e salva no diretório
 ```
 
 # Como Usar o ESLint - Integrado ao VSCode
+
 1. Instalar a extensão do mesmo
 2. Configurar o arquivo .vscode/settings.json
 3. Após reiniciar o VSCode
 
 # ESLint ignore
+
 1. Criar o arquivo .eslintignore
 2. Declarar as pastas devem ser ignoradas
 
-
-
-
-
 # Instruções de Instalação do Prettier
+
 ```bash
 npm install --save-dev prettier # Instalação das dependências
 ```
 
 # Configuração do Prettier
+
 1. Criar o arquivo .prettierrc
 2. Declarar as configurações
 
 # Como Usar o Prettier - Execução manual via termninal
+
 ```bash
 npx prettier --write . # Roda o prettier
 npx prettier --write server.js # Roda o prettier em um arquivo específico
@@ -85,37 +84,35 @@ npx prettier --check . # Verifica se os arquivos estão formatados
 ```
 
 # Como Usar o Prettier - Execução manual via scripts no package.json
+
 ```bash
 npm run format:check # Roda o prettier para verificar se precisa de formatação
 npm run format # Roda o prettier para corrigir erros automaticamente
 ```
 
 # Como Usar o Prettier - Integrado ao VSCode
+
 1. Instalar a extensão do mesmo
 2. Configurar o arquivo .vscode/settings.json
 3. Após reiniciar o VSCode
 
 # Prettier ignore
+
 1. Criar o arquivo .prettierignore
 2. Declarar as pastas devem ser ignoradas
 
-
-
-
-
 # Como Usar o ESLint e Prettier juntos
+
 ```bash
 npm install --save-dev eslint-plugin-prettier eslint-confi g-prettier # Instalação das dependências
 ```
 
 # Configurações do ESLint e Prettier para trabalharem juntos
+
 1. Configurar o arquivo .eslint.config.mjs corretamente
 
-
-
-
-
 # Instruções de Instalação
+
 ```bash
 git clone https://github.com/GilmarLSJR/desweb_prova_p2.git
 npm install express mysql2 dotenv cors helmet jsonwebtoken bcryptjs
