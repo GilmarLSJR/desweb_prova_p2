@@ -1,7 +1,86 @@
 @baseURL = http://localhost:3000
 
-@id_do_usuario = 3
+@id_Usuario_Get = 3
+@id_Usuario_Put = 3
+@id_Usuario_Delete = 4
 
 ### Listar todos os usuários
-GET {{baseURL}}/users
+GET {{baseURL}}/user
+Accept: application/json
+
+### Listar os usuários pelo ID
+GET {{baseURL}}/user/{{id_Usuario_Get}}
+Accept: application/json
+
+
+
+
+### Criar um novo usuário
+POST {{baseURL}}/user
+Content-Type: application/json
+
+{
+    "name": "Tron",
+    "email": "Tron@ifrs.com.br",
+    "password": "hash_Tron",
+    "phone": "010101010101",
+    "role":"tron"
+}
+
+### Criar usuário com email inválido (erro esperado)
+POST {{baseURL}}/user
+Content-Type: application/json
+
+{
+    "name": "Teste Email Invalido",
+    "email": "email_invalido"
+}
+
+### Criar usuário com email repetido (erro esperado)
+POST {{baseURL}}/user
+Content-Type: application/json
+
+{
+    "name": "admin_1",
+    "email": "admin_1@ifrs.edu.br",
+    "password": "hash_teste",
+    "phone": "996821107",
+    "role": "admin"
+}
+
+
+
+
+
+### Atualizar um usuário existente (substitua @id_Usuario_Put)
+PUT {{baseURL}}/user/{{id_Usuario_Put}}
+Content-Type: application/json
+
+{
+    "name": "Gilmar Jr",
+    "email": "gilmarlsjr11@ifrs.com.br",
+    "password": "hash_teste11",
+    "phone": "54991090329",
+    "role": "admin"
+}
+
+### Atualizar usuário inexistente (erro esperado)
+PUT {{baseURL}}/user/9999
+Content-Type: application/json
+
+{
+    "name": "Usuario Inexistente",
+    "email": "inexistente@example.com"
+}
+
+
+
+
+
+### Deletar um usuário existente (substitua @id_Usuario_Delete)
+DELETE {{baseURL}}/user/{{id_Usuario_Delete}}
+Accept: application/json
+
+### Deletar um usuário inexistente (erro esperado)
+DELETE {{baseURL}}/user/9999
 Accept: application/json

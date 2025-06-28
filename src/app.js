@@ -1,6 +1,9 @@
 // Importa o framework Express, utilizado para criar o servidor HTTP e gerenciar rotas
 const express = require('express');
 
+// Importa o middleware Morgan para registrar as requisições HTTP no terminal (útil para depuração e monitoramento)
+const morgan = require('morgan');
+
 // Importa o middleware que permite o compartilhamento de recursos entre diferentes origens (Cross-Origin Resource Sharing)
 const cors = require('cors');
 
@@ -10,8 +13,8 @@ const helmet = require('helmet');
 // // Importa as rotas relacionadas as adoções
 // const adoptionsRoutes = require('./routes/adoptionsRoutes');
 
-// // Importa as rotas relacionadas aos pets
-// const petsRoutes = require('./routes/petsRoutes');
+// Importa as rotas relacionadas aos pets
+const petsRoutes = require('./routes/petsRoutes');
 
 // Importa as rotas relacionadas aos usuários
 const userRoutes = require('./routes/userRoutes');
@@ -19,8 +22,8 @@ const userRoutes = require('./routes/userRoutes');
 // // Importa o middleware para tratamento de erros relacionado as adoções
 // const adoptions_ErrorMiddleware = require('./middlewares/adoptions_ErrorMiddleware');
 
-// // Importa o middleware para tratamento de erros relacionado aos pets
-// const pets_ErrorMiddleware = require('./middlewares/pets_ErrorMiddleware');
+// Importa o middleware para tratamento de erros relacionado aos pets
+const pets_ErrorMiddleware = require('./middlewares/pets_ErrorMiddleware');
 
 // Importa o middleware para tratamento de erros relacionado aos usuários
 const user_ErrorMiddleware = require('./middlewares/user_ErrorMiddleware');
@@ -32,6 +35,9 @@ const user_ErrorMiddleware = require('./middlewares/user_ErrorMiddleware');
 const app = express();
 
 // Middlewares globais
+// Usa o morgan com o formato 'dev' (colorido e resumido)
+app.use(morgan('dev'));
+
 // Habilita o CORS em todas as rotas da aplicação
 app.use(cors());
 
@@ -45,8 +51,8 @@ app.use(express.json());
 // // Define que todas as requisições iniciadas com /adoptions serão encaminhadas para o arquivo adoptionsRoutes
 // app.use('/adoptions', adoptionsRoutes);
 
-// // Define que todas as requisições iniciadas com /pets serão encaminhadas para o arquivo petsRoutes
-// app.use('/pets', petsRoutes);
+// Define que todas as requisições iniciadas com /pets serão encaminhadas para o arquivo petsRoutes
+app.use('/pets', petsRoutes);
 
 // Define que todas as requisições iniciadas com /user serão encaminhadas para o arquivo userRoutes
 app.use('/user', userRoutes);
@@ -55,8 +61,8 @@ app.use('/user', userRoutes);
 // // Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado as adoções
 // app.use(adoptions_ErrorMiddleware);
 
-// // Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado aos pets
-// app.use(pets_ErrorMiddleware);
+// Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado aos pets
+app.use(pets_ErrorMiddleware);
 
 // Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado aos usuários
 app.use(user_ErrorMiddleware);

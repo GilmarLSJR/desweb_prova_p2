@@ -25,6 +25,13 @@ export default defineConfig([
       'consistent-return': 'warn', // Retornos coerentes em funções
       'prefer-template': 'warn', // Usa template strings ao invés de concatenação
       'prettier/prettier': 'error', // Mostra erros de formatação do Prettier como erros do ESLint
+      "no-unused-vars": ["warn", {
+            "vars": "all",
+            "args": "after-used",
+            "caughtErrors": "all",
+            "ignoreRestSiblings": false,
+            "reportUsedIgnorePattern": false
+        }]
     },
   },
 

@@ -16,6 +16,7 @@ API RESTful para controle de adoção de PETS
 - Prettier
 - GitHub
 - Nodemon
+- Morgan
 
 # Instruções de Instalação do ESLint
 
@@ -38,7 +39,7 @@ npm init @eslint/confi g@latest # Assistente para configuração
 
 1. Configurar o arquivo .eslint.config.mjs corretamente
 
-# Como Usar o ESLint - Execução manual via termninal
+# Como Usar o ESLint - Execução manual via terminal
 
 ```bash
 npx eslint server.js # Roda o eslint no server.js
@@ -115,8 +116,9 @@ npm install --save-dev eslint-plugin-prettier eslint-confi g-prettier # Instala�
 
 ```bash
 git clone https://github.com/GilmarLSJR/desweb_prova_p2.git
-npm install express mysql2 dotenv cors helmet jsonwebtoken bcryptjs
+npm install express mysql2 dotenv cors helmet jsonwebtoken bcryptjs morgan
 npm install nodemon --save-dev
+npm install morgan --save-dev
 npm install --save-dev eslint-plugin-prettier eslint-confi g-prettier
 npm run dev
 ```

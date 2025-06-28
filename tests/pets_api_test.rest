@@ -1,0 +1,72 @@
+@baseURL = http://localhost:3000
+
+@id_Pet_Get = 2
+@id_Pet_Put = 3
+@id_Pet_Delete = 3
+
+### Listar todos os pets
+GET {{baseURL}}/pets
+Accept: application/json
+
+### Listar os pets pelo ID
+GET {{baseURL}}/pets/{{id_Pet_Get}}
+Accept: application/json
+
+
+
+
+
+### Criar um novo pet
+POST {{baseURL}}/pets
+Content-Type: application/json
+
+{
+    "name": "Tron",
+    "age": 10,
+    "species": "virtual dog",
+    "size": "big",
+    "status": "available",
+    "description": "fast"
+}
+
+
+
+
+
+### Atualizar um pet existente (substitua @id_Pet_Put)
+PUT {{baseURL}}/pets/{{id_Pet_Put}}
+Content-Type: application/json
+
+{
+    "name": "Clu",
+    "age": 10,
+    "species": "virtual dog",
+    "size": "large",
+    "status": "available",
+    "description": "fast"
+}
+
+### Atualizar pet inexistente (erro esperado)
+PUT {{baseURL}}/pets/9999
+Content-Type: application/json
+
+{
+    "name": "Tron",
+    "age": 10,
+    "species": "virtual dog",
+    "size": "big",
+    "status": "available",
+    "description": "fast"
+}
+
+
+
+
+
+### Deletar um usuário existente (substitua @id_Pet_Delete)
+DELETE {{baseURL}}/pets/{{id_Pet_Delete}}
+Accept: application/json
+
+### Deletar um usuário inexistente (erro esperado)
+DELETE {{baseURL}}/pets/9999
+Accept: application/json
