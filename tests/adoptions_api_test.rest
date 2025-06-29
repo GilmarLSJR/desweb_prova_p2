@@ -1,0 +1,60 @@
+@baseURL = http://localhost:3000
+
+@id_Adoption_Get = 2
+@id_Adoption_Put = 3
+@id_Adoption_Delete = 3
+
+### Listar todos as adoções
+GET {{baseURL}}/adoptions
+Accept: application/json
+
+### Listar as adoções pelo ID
+GET {{baseURL}}/adoptions/{{id_Adoption_Get}}
+Accept: application/json
+
+
+
+
+
+### Criar uma nova adoção
+POST {{baseURL}}/adoptions
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "pet_id": 1
+}
+
+
+
+
+
+### Atualizar uma adoção existente (substitua @id_Adoption_Put)
+PUT {{baseURL}}/adoptions/{{id_Adoption_Put}}
+Content-Type: application/json
+
+{
+    "user_id": 3,
+    "pet_id": 3
+}
+
+### Atualizar adoção inexistente (erro esperado)
+PUT {{baseURL}}/adoptions/9999
+Content-Type: application/json
+
+{
+    "user_id": 3,
+    "pet_id": 3
+}
+
+
+
+
+
+### Deletar uma adoção existente (substitua @id_Adoption_Delete)
+DELETE {{baseURL}}/adoptions/{{id_Adoption_Delete}}
+Accept: application/json
+
+### Deletar uma adoção inexistente (erro esperado)
+DELETE {{baseURL}}/adoptions/9999
+Accept: application/json

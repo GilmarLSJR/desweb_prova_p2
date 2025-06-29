@@ -10,8 +10,8 @@ const cors = require('cors');
 // Importa o middleware de segurança que adiciona cabeçalhos HTTP para proteger contra ataques comuns
 const helmet = require('helmet');
 
-// // Importa as rotas relacionadas as adoções
-// const adoptionsRoutes = require('./routes/adoptionsRoutes');
+// Importa as rotas relacionadas as adoções
+const adoptionsRoutes = require('./routes/adoptionsRoutes');
 
 // Importa as rotas relacionadas aos pets
 const petsRoutes = require('./routes/petsRoutes');
@@ -19,8 +19,8 @@ const petsRoutes = require('./routes/petsRoutes');
 // Importa as rotas relacionadas aos usuários
 const userRoutes = require('./routes/userRoutes');
 
-// // Importa o middleware para tratamento de erros relacionado as adoções
-// const adoptions_ErrorMiddleware = require('./middlewares/adoptions_ErrorMiddleware');
+// Importa o middleware para tratamento de erros relacionado as adoções
+const adoptions_ErrorMiddleware = require('./middlewares/adoptions_ErrorMiddleware');
 
 // Importa o middleware para tratamento de erros relacionado aos pets
 const pets_ErrorMiddleware = require('./middlewares/pets_ErrorMiddleware');
@@ -47,9 +47,9 @@ app.use(helmet());
 // Permite que o servidor interprete requisições com corpo em formato JSON
 app.use(express.json());
 
-// // Rotas da aplicação
-// // Define que todas as requisições iniciadas com /adoptions serão encaminhadas para o arquivo adoptionsRoutes
-// app.use('/adoptions', adoptionsRoutes);
+// Rotas da aplicação
+// Define que todas as requisições iniciadas com /adoptions serão encaminhadas para o arquivo adoptionsRoutes
+app.use('/adoptions', adoptionsRoutes);
 
 // Define que todas as requisições iniciadas com /pets serão encaminhadas para o arquivo petsRoutes
 app.use('/pets', petsRoutes);
@@ -57,9 +57,9 @@ app.use('/pets', petsRoutes);
 // Define que todas as requisições iniciadas com /user serão encaminhadas para o arquivo userRoutes
 app.use('/user', userRoutes);
 
-// // Middleware de tratamento de erros (deve ser adicionado depois das rotas)
-// // Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado as adoções
-// app.use(adoptions_ErrorMiddleware);
+// Middleware de tratamento de erros (deve ser adicionado depois das rotas)
+// Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado as adoções
+app.use(adoptions_ErrorMiddleware);
 
 // Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado aos pets
 app.use(pets_ErrorMiddleware);

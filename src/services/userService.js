@@ -14,7 +14,7 @@ class UserService {
   static async getByID(id) {
     const getUserByID = await UserModel.findByID(id);
     if (!getUserByID) {
-      throw new Error('Usuário não encontrado.'); // Caso nenhum usuário tenha sido deletado
+      throw new Error('Usuário não encontrado.'); // Caso nenhum usuário tenha sido encontrado
     }
     return getUserByID;
   }
@@ -28,7 +28,7 @@ class UserService {
     if (existingUser) {
       throw new Error('Email já cadastrado.'); // Impede cadastro de e-mails duplicados
     }
-    return await UserModel.createUser(user); // Cria o novo usuário
+    return await UserModel.createUser(user); // Cria um novo usuário
   }
 
   // Atualiza informações de um usuário existente

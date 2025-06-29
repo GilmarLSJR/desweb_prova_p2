@@ -63,10 +63,10 @@ Content-Type: application/json
 
 
 
-### Deletar um usuário existente (substitua @id_Pet_Delete)
+### Deletar um pet existente (substitua @id_Pet_Delete)
 DELETE {{baseURL}}/pets/{{id_Pet_Delete}}
 Accept: application/json
 
-### Deletar um usuário inexistente (erro esperado)
+### Deletar um pet inexistente (erro esperado)
 DELETE {{baseURL}}/pets/9999
 Accept: application/json

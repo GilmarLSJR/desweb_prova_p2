@@ -1,7 +1,7 @@
 // Importa o framework Express
 const express = require('express');
 
-// Importa o controller responsável por gerenciar as ações de usuário
+// Importa o controller responsável por gerenciar as ações de pets
 const pets_PublicController = require('../controllers/pets/pets_PublicController');
 
 // Cria uma nova instância de roteador do Express

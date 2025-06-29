@@ -11,14 +11,14 @@ class PetsService {
   static async getByID(id) {
     const getByID = await PetsModel.findByID(id);
     if (!getByID) {
-      throw new Error('Pet não encontrado.'); // Caso nenhum pet tenha sido deletado
+      throw new Error('Pet não encontrado.'); // Caso nenhum pet tenha sido encontrado
     }
     return getByID;
   }
 
   // Cria um novo pet após validações
   static async create(pet) {
-    return await PetsModel.create(pet); // Cria o novo pet
+    return await PetsModel.create(pet); // Cria um novo pet
   }
 
   // Atualiza informações de um pet existente

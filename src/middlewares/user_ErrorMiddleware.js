@@ -1,5 +1,5 @@
 // Middleware para captura de erros em toda a aplicação
-function errorMiddleware(err, req, res, next) {
+function user_errorMiddleware(err, req, res, next) {
   console.error('[ERRO]:', err.stack); // Exibe o erro completo no console para depuração
   // Define o código de status da resposta: usa o informado no erro ou 500 (erro interno) como padrão
   const statusCode = err.statusCode || 500;
@@ -12,4 +12,4 @@ function errorMiddleware(err, req, res, next) {
 }
 
 // Exporta o middleware para ser utilizado no app.js
-module.exports = errorMiddleware;
+module.exports = user_errorMiddleware;
