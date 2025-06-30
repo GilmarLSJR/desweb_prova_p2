@@ -1,34 +1,32 @@
 @baseURL = http://localhost:3000
 
-@id_Usuario_Get = 3
-@id_Usuario_Put = 3
-@id_Usuario_Delete = 4
+@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
+@adopter_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
 
-### Listar todos os usuários
-GET {{baseURL}}/user
-Accept: application/json
-
-### Listar os usuários pelo ID
-GET {{baseURL}}/user/{{id_Usuario_Get}}
-Accept: application/json
+@admin_Token_Ok =  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEyNDk2NjMsImV4cCI6MTc1MTI1MzI2M30.kmyHWGon4rtaW_ALPzTJQbC8qh1ejdTgT8lKBMI47as
+@admin_Token_Nok=  WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEyNDk2NjMsImV4cCI6MTc1MTI1MzI2M30.kmyHWGon4rtaW_ALPzTJQbC8qh1ejdTgT8lKBMI47as
 
 
 
+
+####################################################################################################
+########## PUBLIC ONLY
+####################################################################################################
 
 ### Criar um novo usuário
-POST {{baseURL}}/user
+POST {{baseURL}}/user/public/create
 Content-Type: application/json
 
 {
-    "name": "Tron",
-    "email": "Tron@ifrs.com.br",
-    "password": "hash_Tron",
+    "name": "tron",
+    "email": "tron@ifrs.com.br",
+    "password": "hash_tron",
     "phone": "010101010101",
     "role":"tron"
 }
 
 ### Criar usuário com email inválido (erro esperado)
-POST {{baseURL}}/user
+POST {{baseURL}}/user/public/create
 Content-Type: application/json
 
 {
@@ -37,7 +35,7 @@ Content-Type: application/json
 }
 
 ### Criar usuário com email repetido (erro esperado)
-POST {{baseURL}}/user
+POST {{baseURL}}/user/public/create
 Content-Type: application/json
 
 {
@@ -52,35 +50,66 @@ Content-Type: application/json
 
 
 
-### Atualizar um usuário existente (substitua @id_Usuario_Put)
-PUT {{baseURL}}/user/{{id_Usuario_Put}}
+####################################################################################################
+########## USER ONLY
+####################################################################################################
+
+### Login do usuário com senha correta (usuário já existente no banco)
+POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "name": "Gilmar Jr",
-    "email": "gilmarlsjr11@ifrs.com.br",
-    "password": "hash_teste11",
-    "phone": "54991090329",
-    "role": "admin"
+    "email": "adopter_1@ifrs.edu.br",
+    "password": "123456"
 }
 
-### Atualizar usuário inexistente (erro esperado)
-PUT {{baseURL}}/user/9999
+### Login do usuário com senha incorreta (erro esperado)
+POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "name": "Usuario Inexistente",
-    "email": "inexistente@example.com"
+    "email": "tron@ifrs.com.br",
+    "password": "hash_clu"
 }
 
+### Listar os usuários pelo ID
+GET {{baseURL}}/user/protected/getByID/4
+Authorization: Bearer {{admin_Token_Ok}}
 
 
 
 
-### Deletar um usuário existente (substitua @id_Usuario_Delete)
-DELETE {{baseURL}}/user/{{id_Usuario_Delete}}
-Accept: application/json
 
-### Deletar um usuário inexistente (erro esperado)
-DELETE {{baseURL}}/user/9999
-Accept: application/json
+####################################################################################################
+########## ADMIN ONLY
+####################################################################################################
+
+### Login do admin com senha correta (usuário já existente no banco)
+POST {{baseURL}}/user/public/login
+Content-Type: application/json
+
+{
+    "email": "admin_1@ifrs.edu.br",
+    "password": "admin123"
+}
+
+### Acesso à área admin (rota protegida, requer token de usuário com role "admin")
+GET {{baseURL}}/user/protected/getAll
+Authorization: Bearer {{admin_Token_Ok}}
+
+### Listar os usuários pelo ID
+GET {{baseURL}}/user/protected/getByID/1
+Authorization: Bearer {{admin_Token_Ok}}
+
+### Atualizar dados do usuário (rota protegida, requer token de usuário com role "admin")
+PUT {{baseURL}}/user/protected/update/10
+Content-Type: application/json
+Authorization: Bearer {{admin_Token_Ok}}
+
+{
+    "name": "tron",
+    "email": "tron11@ifrs.edu.br",
+    "password": "hash_tron",
+    "phone": "11001100",
+    "role": "user"
+}

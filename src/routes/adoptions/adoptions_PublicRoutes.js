@@ -2,7 +2,7 @@
 const express = require('express');
 
 // Importa o controller responsável por gerenciar as ações de adoções
-const adoptions_PublicController = require('../controllers/adoptions/adoptions_PublicController');
+const adoptions_PublicController = require('../../controllers/adoptions/adoptions_PublicController');
 
 // Cria uma nova instância de roteador do Express
 const router = express.Router();

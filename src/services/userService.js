@@ -1,3 +1,9 @@
+// Biblioteca para criptografia de senhas
+const bcrypt = require('bcryptjs');
+
+// Biblioteca para geração de tokens JWT
+const jwt = require('jsonwebtoken');
+
 // Importa o Model responsável pelo acesso ao banco de dados (tabela users)
 const UserModel = require('../models/userModel');
 
@@ -21,18 +27,43 @@ class UserService {
 
   // Cria um novo usuário após validações
   static async create(user) {
-    if (!validateEmail(user.email)) {
-      throw new Error('Formato de email inválido.'); // Valida o formato do e-mail
+    const { email, password, role } = user;
+
+    if (!validateEmail(email)) {
+      throw new Error('Formato de email inválido.'); // Verifica o formato do e-mail
     }
-    const existingUser = await UserModel.findByEmail(user.email);
+
+    const existingUser = await UserModel.findByEmail(email);
     if (existingUser) {
       throw new Error('Email já cadastrado.'); // Impede cadastro de e-mails duplicados
     }
-    return await UserModel.createUser(user); // Cria um novo usuário
+    // Criptografa a senha antes de salvar no banco
+    const hashed = await bcrypt.hash(password, 10);
+
+    // Substitui a senha original pela criptografada
+    user.password = hashed;
+
+    return await UserModel.create(user); // Cria um novo usuário
   }
 
   // Atualiza informações de um usuário existente
   static async update(id, user) {
+    const { email, password } = user;
+
+    if (!validateEmail(email)) {
+      throw new Error('Formato de email inválido.'); // Verifica o formato do e-mail
+    }
+
+    const existingUser = await UserModel.findByEmail(email);
+    if (existingUser) {
+      throw new Error('Email já cadastrado.'); // Impede cadastro de e-mails duplicados
+    }
+    // Criptografa a senha antes de salvar no banco
+    const hashed = await bcrypt.hash(password, 10);
+
+    // Substitui a senha original pela criptografada
+    user.password = hashed;
+
     const updatedRows = await UserModel.update(id, user);
     if (updatedRows === 0) {
       throw new Error('Usuário não encontrado.'); // Caso nenhum usuário tenha sido atualizado
@@ -47,6 +78,36 @@ class UserService {
       throw new Error('Usuário não encontrado.'); // Caso nenhum usuário tenha sido deletado
     }
     return deletedRows;
+  }
+
+  // Método para autenticar o usuário e gerar token JWT
+  static async login({ email, password }) {
+    // Verifica o formato do e-mail
+    if (!validateEmail(email)) {
+      throw new Error('Formato de email inválido.');
+    }
+
+    // Busca o usuário pelo e-mail
+    const user = await UserModel.findByEmail(email);
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+
+    // Verifica se a senha fornecida é válida
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+      throw new Error('Senha inválida');
+    }
+
+    // Gera o token JWT
+    const token = jwt.sign(
+      { email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    // Retorna o token para o controller
+    return { token };
   }
 }
 

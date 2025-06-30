@@ -1,15 +1,24 @@
 @baseURL = http://localhost:3000
 
-@id_Pet_Get = 2
+@id_Pet_Get = 10
 @id_Pet_Put = 3
 @id_Pet_Delete = 3
 
+
+
+
+
+
 ### Listar todos os pets
-GET {{baseURL}}/pets
+GET {{baseURL}}/pets/public
 Accept: application/json
 
 ### Listar os pets pelo ID
-GET {{baseURL}}/pets/{{id_Pet_Get}}
+GET {{baseURL}}/pets/public/id/{{id_Pet_Get}}
+Accept: application/json
+
+### Listar os pets pelo status de disponiveis
+GET {{baseURL}}/pets/public/status/available
 Accept: application/json
 
 
@@ -17,7 +26,7 @@ Accept: application/json
 
 
 ### Criar um novo pet
-POST {{baseURL}}/pets
+POST {{baseURL}}/pets/public
 Content-Type: application/json
 
 {
@@ -34,7 +43,7 @@ Content-Type: application/json
 
 
 ### Atualizar um pet existente (substitua @id_Pet_Put)
-PUT {{baseURL}}/pets/{{id_Pet_Put}}
+PUT {{baseURL}}/pets/public/update/{{id_Pet_Put}}
 Content-Type: application/json
 
 {
@@ -47,7 +56,7 @@ Content-Type: application/json
 }
 
 ### Atualizar pet inexistente (erro esperado)
-PUT {{baseURL}}/pets/9999
+PUT {{baseURL}}/pets/public/update/9999
 Content-Type: application/json
 
 {
@@ -64,9 +73,9 @@ Content-Type: application/json
 
 
 ### Deletar um pet existente (substitua @id_Pet_Delete)
-DELETE {{baseURL}}/pets/{{id_Pet_Delete}}
+DELETE {{baseURL}}/pets/public/delete/{{id_Pet_Delete}}
 Accept: application/json
 
 ### Deletar um pet inexistente (erro esperado)
-DELETE {{baseURL}}/pets/9999
+DELETE {{baseURL}}/pets/public/delete/9999
 Accept: application/json

@@ -21,7 +21,7 @@ export default defineConfig([
     },
     rules: {
       'prefer-const': 'error', // Use const se possível
-      'no-console': 'warn', // Evita uso indiscriminado de console.log
+      'no-console': 'off', // Evita uso indiscriminado de console.log
       'consistent-return': 'warn', // Retornos coerentes em funções
       'prefer-template': 'warn', // Usa template strings ao invés de concatenação
       'prettier/prettier': 'error', // Mostra erros de formatação do Prettier como erros do ESLint

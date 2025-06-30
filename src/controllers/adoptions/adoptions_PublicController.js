@@ -1,7 +1,7 @@
 // Importa o serviço que contém a lógica de negócio para manipular adoções
 const AdoptionsService = require('../../services/adoptionsService');
 
-class AdoptionsController {
+class Adoptions_PublicController {
   // Método para listar todas as adoções
   static async getAll(req, res) {
     try {
@@ -57,4 +57,4 @@ class AdoptionsController {
 }
 
 // Exporta o Controller para ser usado nas rotas
-module.exports = AdoptionsController;
+module.exports = Adoptions_PublicController;

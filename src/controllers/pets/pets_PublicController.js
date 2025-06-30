@@ -1,9 +1,10 @@
 // Importa o serviço que contém a lógica de negócio para manipular pets
 const PetsService = require('../../services/petsService');
 
-class PetsController {
+class Pets_PublicController {
   // Método para listar todos os pets
   static async getAll(req, res) {
+    console.log('pets_controller_getAll');
     try {
       const pets = await PetsService.getAll(); // Chama o service para buscar pets
       res.json(pets); // Retorna a lista em formato JSON
@@ -12,19 +13,33 @@ class PetsController {
     }
   }
 
-  // Método para listar todos os pets
+  // Método para listar os pets pelo ID
   static async getByID(req, res) {
+    console.log('pets_controller_getByID');
     try {
       const id = req.params.id; // Pega o ID da URL
       const pets = await PetsService.getByID(id); // Chama o service para buscar pets pelo ID
       res.json(pets); // Retorna a lista em formato JSON
     } catch (error) {
-      res.status(400).json({ error: error.message }); // Retorna erro se et não encontrado
+      res.status(400).json({ error: error.message }); // Retorna erro se pet não encontrado
+    }
+  }
+
+  // Método para listar todos os pets disponiveis
+  static async getByStatus(req, res) {
+    console.log('pets_controller_getByStatus');
+    try {
+      const status = req.params.status; // Pega o ID da URL
+      const pets = await PetsService.getByStatus(status); // Chama o service para buscar pets pelo ID
+      res.json(pets); // Retorna a lista em formato JSON
+    } catch (error) {
+      res.status(400).json({ error: error.message }); // Retorna erro se pet não encontrado
     }
   }
 
   // Método para criar um novo pet
   static async create(req, res) {
+    console.log('pets_controller_create');
     try {
       const id = await PetsService.create(req.body); // Chama o service para criar pet
       res.status(201).json({ message: 'Pet criado com sucesso.', id }); // Retorna status 201 (criado) e o ID
@@ -35,6 +50,7 @@ class PetsController {
 
   // Método para atualizar um et existente
   static async update(req, res) {
+    console.log('pets_controller_update');
     try {
       const id = req.params.id; // Pega o ID da URL
       await PetsService.update(id, req.body); // Chama o service para atualizar
@@ -46,6 +62,7 @@ class PetsController {
 
   // Método para deletar um pet
   static async delete(req, res) {
+    console.log('pets_controller_delete');
     try {
       const id = req.params.id; // Pega o ID da URL
       await PetsService.delete(id); // Chama o service para deletar
@@ -57,4 +74,4 @@ class PetsController {
 }
 
 // Exporta o Controller para ser usado nas rotas
-module.exports = PetsController;
+module.exports = Pets_PublicController;

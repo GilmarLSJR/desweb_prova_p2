@@ -10,14 +10,17 @@ const cors = require('cors');
 // Importa o middleware de segurança que adiciona cabeçalhos HTTP para proteger contra ataques comuns
 const helmet = require('helmet');
 
-// Importa as rotas relacionadas as adoções
-const adoptionsRoutes = require('./routes/adoptionsRoutes');
+// Importa as rotas relacionadas as adoções - Public
+const adoptions_PublicRoutes = require('./routes/adoptions/adoptions_PublicRoutes');
 
-// Importa as rotas relacionadas aos pets
-const petsRoutes = require('./routes/petsRoutes');
+// Importa as rotas relacionadas aos pets - Public
+const pets_PublicRoutes = require('./routes/pets/pets_PublicRoutes');
 
-// Importa as rotas relacionadas aos usuários
-const userRoutes = require('./routes/userRoutes');
+// Importa as rotas relacionadas aos usuários - Protected
+const user_ProtectedRoutes = require('./routes/user/user_ProtectedRoutes');
+
+// Importa as rotas relacionadas aos usuários - Public
+const user_PublicRoutes = require('./routes/user/user_PublicRoutes');
 
 // Importa o middleware para tratamento de erros relacionado as adoções
 const adoptions_ErrorMiddleware = require('./middlewares/adoptions_ErrorMiddleware');
@@ -48,14 +51,17 @@ app.use(helmet());
 app.use(express.json());
 
 // Rotas da aplicação
-// Define que todas as requisições iniciadas com /adoptions serão encaminhadas para o arquivo adoptionsRoutes
-app.use('/adoptions', adoptionsRoutes);
+// Define que todas as requisições iniciadas com /adoptions/public serão encaminhadas para o arquivo adoptions_PublicRoutes
+app.use('/adoptions/public', adoptions_PublicRoutes);
 
-// Define que todas as requisições iniciadas com /pets serão encaminhadas para o arquivo petsRoutes
-app.use('/pets', petsRoutes);
+// Define que todas as requisições iniciadas com /pets/public serão encaminhadas para o arquivo pets_PublicRoutes
+app.use('/pets/public', pets_PublicRoutes);
 
-// Define que todas as requisições iniciadas com /user serão encaminhadas para o arquivo userRoutes
-app.use('/user', userRoutes);
+// Define que todas as requisições iniciadas com /user/protected serão encaminhadas para o arquivo user_ProtectedRoutes
+app.use('/user/protected', user_ProtectedRoutes);
+
+// Define que todas as requisições iniciadas com /user/public serão encaminhadas para o arquivo user_PublicRoutes
+app.use('/user/public', user_PublicRoutes);
 
 // Middleware de tratamento de erros (deve ser adicionado depois das rotas)
 // Middleware que captura e trata erros, enviando respostas ao cliente - Relacionado as adoções
