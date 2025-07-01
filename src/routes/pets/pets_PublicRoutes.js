@@ -8,6 +8,6 @@ const pets_PublicController = require('../../controllers/pets/pets_PublicControl
 const router = express.Router();
 
 // Define a rota para listar os pets pelo status de disponiveis
-router.get('/status/:status', pets_PublicController.getByStatus);
+router.get('/getByStatus/:status', pets_PublicController.getByStatus);
 
 module.exports = router; // Exporta o roteador configurado para ser usado no app principal

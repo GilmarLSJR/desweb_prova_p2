@@ -13,11 +13,13 @@ const validateEmail = require('../utils/validateEmail');
 class UserService {
   // Busca todos os usuários cadastrados
   static async getAll() {
+    console.log('user_service_getAll');
     return await UserModel.findAll();
   }
 
   // Busca os usuários cadastrados pelo ID
   static async getByID(id) {
+    console.log('user_service_getByID');
     const getUserByID = await UserModel.findByID(id);
     if (!getUserByID) {
       throw new Error('Usuário não encontrado.'); // Caso nenhum usuário tenha sido encontrado
@@ -27,7 +29,8 @@ class UserService {
 
   // Cria um novo usuário após validações
   static async create(user) {
-    const { email, password, role } = user;
+    console.log('user_service_create');
+    const { email, password } = user;
 
     if (!validateEmail(email)) {
       throw new Error('Formato de email inválido.'); // Verifica o formato do e-mail
@@ -48,6 +51,7 @@ class UserService {
 
   // Atualiza informações de um usuário existente
   static async update(id, user) {
+    console.log('user_service_update');
     const { email, password } = user;
 
     if (!validateEmail(email)) {
@@ -73,6 +77,7 @@ class UserService {
 
   // Deleta um usuário pelo ID static
   static async delete(id) {
+    console.log('user_service_delete');
     const deletedRows = await UserModel.delete(id);
     if (deletedRows === 0) {
       throw new Error('Usuário não encontrado.'); // Caso nenhum usuário tenha sido deletado
@@ -82,6 +87,7 @@ class UserService {
 
   // Método para autenticar o usuário e gerar token JWT
   static async login({ email, password }) {
+    console.log('user_service_login');
     // Verifica o formato do e-mail
     if (!validateEmail(email)) {
       throw new Error('Formato de email inválido.');
@@ -101,7 +107,7 @@ class UserService {
 
     // Gera o token JWT
     const token = jwt.sign(
-      { email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );

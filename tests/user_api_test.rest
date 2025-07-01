@@ -1,10 +1,9 @@
 @baseURL = http://localhost:3000
 
-@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
-@adopter_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
+@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG9wdGVyXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRvcHRlciIsImlhdCI6MTc1MTM5NDI4NSwiZXhwIjoxNzUxMzk3ODg1fQ.dzKHnUx3Uru0sZ-26ITTbtngN_uWEJWwnWcWEpShkG0
 
-@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
-@admin_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbl8xQGlmcnMuZWR1LmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxMzkzMzQwLCJleHAiOjE3NTEzOTY5NDB9._931jhKg_8dwQK4wHQso6CyqApcCM-iKpwSDegOo6DQ
+
 
 
 
@@ -18,11 +17,11 @@ POST {{baseURL}}/user/public/create
 Content-Type: application/json
 
 {
-    "name": "tron",
-    "email": "tron@ifrs.com.br",
-    "password": "hash_tron",
+    "name": "gilmar",
+    "email": "gilmar@ifrs.com.br",
+    "password": "hash_gilmar",
     "phone": "010101010101",
-    "role":"tron"
+    "role":"adopter"
 }
 
 ### Criar usuário com email inválido (erro esperado)
@@ -73,8 +72,21 @@ Content-Type: application/json
 }
 
 ### Listar os usuários pelo ID (rota protegida, requer token de usuário com role "adopter")
-GET {{baseURL}}/user/protected/getByID/2
-Authorization: Bearer {{admin_Token_Ok}}
+GET {{baseURL}}/user/protected/getByID/1
+Authorization: Bearer {{adopter_Token_Ok}}
+
+### Atualizar dados do usuário pelo ID (rota protegida, requer token de usuário com role "adopter")
+PUT {{baseURL}}/user/protected/update/1
+Content-Type: application/json
+Authorization: Bearer {{adopter_Token_Ok}}
+
+{
+    "name": "adopter_clu",
+    "email": "adopter_clu@ifrs.edu.br",
+    "password": "123456",
+    "phone": "11001100",
+    "role": "adopter"
+}
 
 
 
@@ -106,12 +118,16 @@ Content-Type: application/json
 GET {{baseURL}}/user/protected/getAll
 Authorization: Bearer {{admin_Token_Ok}}
 
+### Listar todos usuários (role incorreto - erro esperado)
+GET {{baseURL}}/user/protected/getAll
+Authorization: Bearer {{adopter_Token_Ok}}
+
 ### Listar os usuários pelo ID (rota protegida, requer token de usuário com role "admin")
-GET {{baseURL}}/user/protected/getByID/1
+GET {{baseURL}}/user/protected/getByID/16
 Authorization: Bearer {{admin_Token_Ok}}
 
 ### Atualizar dados do usuário pelo ID (rota protegida, requer token de usuário com role "admin")
-PUT {{baseURL}}/user/protected/update/11
+PUT {{baseURL}}/user/protected/update/13
 Content-Type: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
@@ -124,6 +140,11 @@ Authorization: Bearer {{admin_Token_Ok}}
 }
 
 ### Deletar usuário pelo ID (rota protegida, requer token de usuário com role "admin")
-DELETE {{baseURL}}/user/protected/delete/11
+DELETE {{baseURL}}/user/protected/delete/13
 Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}
+
+### Deletar usuário pelo ID (role incorreto - erro esperado)
+DELETE {{baseURL}}/user/protected/delete/11
+Accept: application/json
+Authorization: Bearer {{adopter_Token_Ok}}

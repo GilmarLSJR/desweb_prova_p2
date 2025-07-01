@@ -1,10 +1,8 @@
 @baseURL = http://localhost:3000
 
-@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMzM0NDg4LCJleHAiOjE3NTEzMzgwODh9.2PSO6XnAqrPBCRwFMqxbcZEs9EaSJypyPN1h5mCbq4k
-@adopter_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMzM0NDg4LCJleHAiOjE3NTEzMzgwODh9.2PSO6XnAqrPBCRwFMqxbcZEs9EaSJypyPN1h5mCbq4k
+@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG9wdGVyX2NsdUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMzk2NTk1LCJleHAiOjE3NTE0MDAxOTV9.WZ4oLwAvLviaqJ-hdk35OLZ57XtoqB6aEHziY_By2pw
 
-@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
-@admin_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbl8xQGlmcnMuZWR1LmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxMzkzMzQwLCJleHAiOjE3NTEzOTY5NDB9._931jhKg_8dwQK4wHQso6CyqApcCM-iKpwSDegOo6DQ
 
 
 
@@ -19,7 +17,7 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "adopter_1@ifrs.edu.br",
+    "email": "adopter_clu@ifrs.edu.br",
     "password": "123456"
 }
 
@@ -30,7 +28,7 @@ Authorization: Bearer {{adopter_Token_Ok}}
 
 {
     "user_id": 1,
-    "pet_id": 1
+    "pet_id":  1
 }
 
 
@@ -56,6 +54,6 @@ Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
 ### Listar todas adoções pelo ID (rota protegida, requer token de usuário com role "admin")
-GET {{baseURL}}/adoptions/protected/getByID/1
+GET {{baseURL}}/adoptions/protected/getByID/7
 Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}

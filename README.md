@@ -18,6 +18,63 @@ API RESTful para controle de adoção de PETS
 - Nodemon
 - Morgan
 
+
+# Banco de Dados
+
+Declaração banco pets_db
+
+```bash
+CREATE DATABASE IF NOT EXISTS pets_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Declaração tabela users
+
+```bash
+USE pets_db;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    phone VARCHAR(100)NOT NULL,
+    role VARCHAR(100) NOT NULL DEFAULT 'adopter',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+Declaração tabela pets
+
+```bash
+USE pets_db;
+
+CREATE TABLE IF NOT EXISTS pets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT NOT NULL,
+    species VARCHAR(100) NOT NULL,
+    size VARCHAR(100) NOT NULL,
+    status VARCHAR(100) NOT NULL,
+    description VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+Declaração tabela adoptions
+
+```bash
+USE pets_db;
+
+CREATE TABLE IF NOT EXISTS adoptions (
+id INT AUTO_INCREMENT PRIMARY KEY,
+user_id INT NOT NULL,
+pet_id INT NOT NULL,
+adoption_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (user_id) REFERENCES users (id),
+FOREIGN KEY (pet_id) REFERENCES pets (id)
+);
+```
+
 # Instruções de Instalação do ESLint
 
 ```bash

@@ -4,7 +4,7 @@ const PetsService = require('../../services/petsService');
 class Pets_ProtectedController {
   // Método para listar todos os pets
   static async adminOnly_getAll(req, res) {
-    console.log('pets_controller_getAll');
+    console.log('pets_controller_adminOnly_getAll');
     try {
       const pets = await PetsService.getAll(); // Chama o service para buscar pets
       res.json(pets); // Retorna a lista em formato JSON
@@ -15,7 +15,7 @@ class Pets_ProtectedController {
 
   // Método para listar os pets pelo ID
   static async adminOnly_getByID(req, res) {
-    console.log('pets_controller_getByID');
+    console.log('pets_controller_adminOnly_getByID');
     try {
       const id = req.params.id; // Pega o ID da URL
       const pets = await PetsService.getByID(id); // Chama o service para buscar pets pelo ID
@@ -38,7 +38,7 @@ class Pets_ProtectedController {
 
   // Método para atualizar um et existente
   static async adminOnly_update(req, res) {
-    console.log('pets_controller_update');
+    console.log('pets_controller_adminOnly_update');
     try {
       const id = req.params.id; // Pega o ID da URL
       await PetsService.update(id, req.body); // Chama o service para atualizar
@@ -50,7 +50,7 @@ class Pets_ProtectedController {
 
   // Método para deletar um pet
   static async adminOnly_delete(req, res) {
-    console.log('pets_controller_delete');
+    console.log('pets_controller_adminOnly_delete');
     try {
       const id = req.params.id; // Pega o ID da URL
       await PetsService.delete(id); // Chama o service para deletar

@@ -36,8 +36,8 @@ router.get(
 router.put(
   '/update/:id',
   authenticateToken,
-  authorizeRole('admin'),
-  user_ProtectedController.adminOnly_update
+  authorizeRole('admin', 'adopter'),
+  user_ProtectedController.update
 );
 
 // Define a rota DELETE /admin que chama o método update do user_ProtectedController

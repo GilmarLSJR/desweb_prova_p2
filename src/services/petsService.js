@@ -47,6 +47,16 @@ class PetsService {
   // Deleta um pet pelo ID static
   static async delete(id) {
     console.log('pets_service_delete');
+    // Verifica condições do pet antes de excluir
+    const pet = await PetsModel.findByID(id);
+    if (!pet) {
+      throw new Error('Pet não encontrado'); // Erro se não encontrar o pet
+    }
+
+    if (pet.status === 'adopted') {
+      throw new Error('Pet adotado não pode ser excluido');
+    }
+
     const deletedRows = await PetsModel.delete(id);
     if (deletedRows === 0) {
       throw new Error('Pet não encontrado.'); // Caso nenhum pet tenha sido deletado

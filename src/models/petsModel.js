@@ -53,6 +53,11 @@ class PetsModel {
     const [result] = await db.query('DELETE FROM pets WHERE id = ?', [id]);
     return result.affectedRows; // Retorna o número de linhas afetadas
   }
+
+  // Atualiza status de pet disponível
+  static async updateStatus(id, status) {
+    await db.query('UPDATE pets SET status = ? WHERE id = ?', [status, id]);
+  }
 }
 
 // Exporta a classe PetModel para ser usada nos services
