@@ -20,24 +20,6 @@ class AdoptionsService {
   static async create(adoption) {
     return await AdoptionsModel.create(adoption); // Cria uma nova adoção
   }
-
-  // Atualiza informações de uma adoção existente
-  static async update(id, adoption) {
-    const updatedRows = await AdoptionsModel.update(id, adoption);
-    if (updatedRows === 0) {
-      throw new Error('Adoção não encontrada.'); // Caso nenhuma adoção tenha sido atualizada
-    }
-    return updatedRows;
-  }
-
-  // Deleta uma adoção pelo ID static
-  static async delete(id) {
-    const deletedRows = await AdoptionsModel.delete(id);
-    if (deletedRows === 0) {
-      throw new Error('Adoção não encontrada.'); // Caso nenhuma adoção tenha sido deletada
-    }
-    return deletedRows;
-  }
 }
 
 // Exporta a classe para ser utilizada pelos controllers

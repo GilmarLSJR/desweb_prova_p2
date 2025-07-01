@@ -11,7 +11,13 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 // Importa as rotas relacionadas as adoções - Public
-const adoptions_PublicRoutes = require('./routes/adoptions/adoptions_PublicRoutes');
+const adoptions_ProtectedRoutes = require('./routes/adoptions/adoptions_ProtectedRoutes');
+
+// // Importa as rotas relacionadas as adoções - Public
+// const adoptions_PublicRoutes = require('./routes/adoptions/adoptions_PublicRoutes');
+
+// Importa as rotas relacionadas aos pets - Protected
+const pets_ProtectedRoutes = require('./routes/pets/pets_ProtectedRoutes');
 
 // Importa as rotas relacionadas aos pets - Public
 const pets_PublicRoutes = require('./routes/pets/pets_PublicRoutes');
@@ -51,8 +57,14 @@ app.use(helmet());
 app.use(express.json());
 
 // Rotas da aplicação
-// Define que todas as requisições iniciadas com /adoptions/public serão encaminhadas para o arquivo adoptions_PublicRoutes
-app.use('/adoptions/public', adoptions_PublicRoutes);
+// Define que todas as requisições iniciadas com /adoptions/protected serão encaminhadas para o arquivo adoptions_ProtectedRoutes
+app.use('/adoptions/protected', adoptions_ProtectedRoutes);
+
+// // Define que todas as requisições iniciadas com /adoptions/public serão encaminhadas para o arquivo adoptions_PublicRoutes
+// app.use('/adoptions/public', adoptions_PublicRoutes);
+
+// Define que todas as requisições iniciadas com /pets/protected serão encaminhadas para o arquivo pets_ProtectedRoutes
+app.use('/pets/protected', pets_ProtectedRoutes);
 
 // Define que todas as requisições iniciadas com /pets/public serão encaminhadas para o arquivo pets_PublicRoutes
 app.use('/pets/public', pets_PublicRoutes);

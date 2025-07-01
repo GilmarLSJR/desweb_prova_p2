@@ -40,5 +40,13 @@ router.put(
   user_ProtectedController.adminOnly_update
 );
 
+// Define a rota DELETE /admin que chama o método update do user_ProtectedController
+router.delete(
+  '/delete/:id',
+  authenticateToken,
+  authorizeRole('admin'),
+  user_ProtectedController.adminOnly_delete
+);
+
 // Exporta o roteador configurado para ser utilizado na aplicação
 module.exports = router;

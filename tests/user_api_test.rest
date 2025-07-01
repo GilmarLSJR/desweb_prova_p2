@@ -3,14 +3,14 @@
 @adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
 @adopter_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
 
-@admin_Token_Ok =  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEyNDk2NjMsImV4cCI6MTc1MTI1MzI2M30.kmyHWGon4rtaW_ALPzTJQbC8qh1ejdTgT8lKBMI47as
-@admin_Token_Nok=  WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEyNDk2NjMsImV4cCI6MTc1MTI1MzI2M30.kmyHWGon4rtaW_ALPzTJQbC8qh1ejdTgT8lKBMI47as
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
+@admin_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
 
 
 
 
 ####################################################################################################
-########## PUBLIC ONLY
+########## PUBLIC
 ####################################################################################################
 
 ### Criar um novo usuário
@@ -72,8 +72,8 @@ Content-Type: application/json
     "password": "hash_clu"
 }
 
-### Listar os usuários pelo ID
-GET {{baseURL}}/user/protected/getByID/4
+### Listar os usuários pelo ID (rota protegida, requer token de usuário com role "adopter")
+GET {{baseURL}}/user/protected/getByID/2
 Authorization: Bearer {{admin_Token_Ok}}
 
 
@@ -93,16 +93,25 @@ Content-Type: application/json
     "password": "admin123"
 }
 
-### Acesso à área admin (rota protegida, requer token de usuário com role "admin")
+### Login do admin com senha incorreta (erro esperado)
+POST {{baseURL}}/user/public/login
+Content-Type: application/json
+
+{
+    "email": "admin_1@ifrs.edu.br",
+    "password": "wrong_admin123"
+}
+
+### Listar todos usuários (rota protegida, requer token de usuário com role "admin")
 GET {{baseURL}}/user/protected/getAll
 Authorization: Bearer {{admin_Token_Ok}}
 
-### Listar os usuários pelo ID
+### Listar os usuários pelo ID (rota protegida, requer token de usuário com role "admin")
 GET {{baseURL}}/user/protected/getByID/1
 Authorization: Bearer {{admin_Token_Ok}}
 
-### Atualizar dados do usuário (rota protegida, requer token de usuário com role "admin")
-PUT {{baseURL}}/user/protected/update/10
+### Atualizar dados do usuário pelo ID (rota protegida, requer token de usuário com role "admin")
+PUT {{baseURL}}/user/protected/update/11
 Content-Type: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
@@ -113,3 +122,8 @@ Authorization: Bearer {{admin_Token_Ok}}
     "phone": "11001100",
     "role": "user"
 }
+
+### Deletar usuário pelo ID (rota protegida, requer token de usuário com role "admin")
+DELETE {{baseURL}}/user/protected/delete/11
+Accept: application/json
+Authorization: Bearer {{admin_Token_Ok}}

@@ -1,33 +1,42 @@
 @baseURL = http://localhost:3000
 
-@id_Pet_Get = 10
-@id_Pet_Put = 3
-@id_Pet_Delete = 3
+@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
+@adopter_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMjUxMDcwLCJleHAiOjE3NTEyNTQ2NzB9.C11GCRiO45TKZb55ZyxsXbY076OihtQAHntnyFc3y0o
+
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
+@admin_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
 
 
 
 
 
+####################################################################################################
+########## ADMIN ONLY
+####################################################################################################
 
-### Listar todos os pets
-GET {{baseURL}}/pets/public
-Accept: application/json
-
-### Listar os pets pelo ID
-GET {{baseURL}}/pets/public/id/{{id_Pet_Get}}
-Accept: application/json
-
-### Listar os pets pelo status de disponiveis
-GET {{baseURL}}/pets/public/status/available
-Accept: application/json
-
-
-
-
-
-### Criar um novo pet
-POST {{baseURL}}/pets/public
+### Login do usuário com senha correta (usuário já existente no banco)
+POST {{baseURL}}/user/public/login
 Content-Type: application/json
+
+{
+    "email": "adopter_1@ifrs.edu.br",
+    "password": "123456"
+}
+
+### Listar todos os pets (rota protegida, requer token de usuário com role "admin")
+GET {{baseURL}}/pets/protected/getAll
+Accept: application/json
+Authorization: Bearer {{admin_Token_Ok}}
+
+### Listar os pets pelo ID (rota protegida, requer token de usuário com role "admin")
+GET {{baseURL}}/pets/protected/getByID/1
+Accept: application/json
+Authorization: Bearer {{admin_Token_Ok}}
+
+### Criar um novo pet (rota protegida, requer token de usuário com role "admin")
+POST {{baseURL}}/pets/protected/post
+Content-Type: application/json
+Authorization: Bearer {{admin_Token_Ok}}
 
 {
     "name": "Tron",
@@ -38,13 +47,10 @@ Content-Type: application/json
     "description": "fast"
 }
 
-
-
-
-
-### Atualizar um pet existente (substitua @id_Pet_Put)
-PUT {{baseURL}}/pets/public/update/{{id_Pet_Put}}
+### Atualizar um pet existente (rota protegida, requer token de usuário com role "admin")
+PUT {{baseURL}}/pets/protected/update/8
 Content-Type: application/json
+Authorization: Bearer {{admin_Token_Ok}}
 
 {
     "name": "Clu",
@@ -55,27 +61,7 @@ Content-Type: application/json
     "description": "fast"
 }
 
-### Atualizar pet inexistente (erro esperado)
-PUT {{baseURL}}/pets/public/update/9999
-Content-Type: application/json
-
-{
-    "name": "Tron",
-    "age": 10,
-    "species": "virtual dog",
-    "size": "big",
-    "status": "available",
-    "description": "fast"
-}
-
-
-
-
-
-### Deletar um pet existente (substitua @id_Pet_Delete)
-DELETE {{baseURL}}/pets/public/delete/{{id_Pet_Delete}}
+### Deletar um pet existente (rota protegida, requer token de usuário com role "admin")
+DELETE {{baseURL}}/pets/protected/delete/8
 Accept: application/json
-
-### Deletar um pet inexistente (erro esperado)
-DELETE {{baseURL}}/pets/public/delete/9999
-Accept: application/json
+Authorization: Bearer {{admin_Token_Ok}}

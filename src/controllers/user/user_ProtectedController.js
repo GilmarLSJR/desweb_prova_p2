@@ -35,7 +35,7 @@ class User_ProtectedController {
   }
 
   // Método para deletar um usuário
-  static async delete(req, res) {
+  static async adminOnly_delete(req, res) {
     try {
       const id = req.params.id; // Pega o ID da URL
       await userService.delete(id); // Chama o service para deletar

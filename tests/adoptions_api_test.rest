@@ -1,24 +1,32 @@
 @baseURL = http://localhost:3000
 
-@id_Adoption_Get = 2
-@id_Adoption_Put = 3
-@id_Adoption_Delete = 3
+@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMzM0NDg4LCJleHAiOjE3NTEzMzgwODh9.2PSO6XnAqrPBCRwFMqxbcZEs9EaSJypyPN1h5mCbq4k
+@adopter_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMzM0NDg4LCJleHAiOjE3NTEzMzgwODh9.2PSO6XnAqrPBCRwFMqxbcZEs9EaSJypyPN1h5mCbq4k
 
-### Listar todos as adoções
-GET {{baseURL}}/adoptions
-Accept: application/json
-
-### Listar as adoções pelo ID
-GET {{baseURL}}/adoptions/{{id_Adoption_Get}}
-Accept: application/json
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
+@admin_Token_Nok = WRONG_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzMzQ2MTYsImV4cCI6MTc1MTMzODIxNn0.XGmIQSFwCQZWP29V5ogpl2ubvrANmoer-5TYyF6m9Ns
 
 
 
 
+
+####################################################################################################
+########## USER ONLY
+####################################################################################################
+
+### Login do usuário com senha correta (usuário já existente no banco)
+POST {{baseURL}}/user/public/login
+Content-Type: application/json
+
+{
+    "email": "adopter_1@ifrs.edu.br",
+    "password": "123456"
+}
 
 ### Criar uma nova adoção
-POST {{baseURL}}/adoptions
+POST {{baseURL}}/adoptions/protected/post
 Content-Type: application/json
+Authorization: Bearer {{adopter_Token_Ok}}
 
 {
     "user_id": 1,
@@ -29,32 +37,25 @@ Content-Type: application/json
 
 
 
-### Atualizar uma adoção existente (substitua @id_Adoption_Put)
-PUT {{baseURL}}/adoptions/{{id_Adoption_Put}}
+####################################################################################################
+########## ADMIN ONLY
+####################################################################################################
+
+### Login do admin com senha correta (usuário já existente no banco)
+POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "user_id": 3,
-    "pet_id": 3
+    "email": "admin_1@ifrs.edu.br",
+    "password": "admin123"
 }
 
-### Atualizar adoção inexistente (erro esperado)
-PUT {{baseURL}}/adoptions/9999
-Content-Type: application/json
-
-{
-    "user_id": 3,
-    "pet_id": 3
-}
-
-
-
-
-
-### Deletar uma adoção existente (substitua @id_Adoption_Delete)
-DELETE {{baseURL}}/adoptions/{{id_Adoption_Delete}}
+### Listar todas adoções (rota protegida, requer token de usuário com role "admin")
+GET {{baseURL}}/adoptions/protected/getAll
 Accept: application/json
+Authorization: Bearer {{admin_Token_Ok}}
 
-### Deletar uma adoção inexistente (erro esperado)
-DELETE {{baseURL}}/adoptions/9999
+### Listar todas adoções pelo ID (rota protegida, requer token de usuário com role "admin")
+GET {{baseURL}}/adoptions/protected/getByID/1
 Accept: application/json
+Authorization: Bearer {{admin_Token_Ok}}
