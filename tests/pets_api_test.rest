@@ -2,7 +2,7 @@
 
 @adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkb3B0ZXJfMUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMzczODIyLCJleHAiOjE3NTEzNzc0MjJ9.37jspxnTocJMwN1aLQY2PMB5J4_XeE6vNKxkuIprNiY
 
-@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbl8xQGlmcnMuZWR1LmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxMzkzMzQwLCJleHAiOjE3NTEzOTY5NDB9._931jhKg_8dwQK4wHQso6CyqApcCM-iKpwSDegOo6DQ
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoiYWRtaW4xQGlmcnMuY29tLmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxNDAyNzA4LCJleHAiOjE3NTE0MDYzMDh9.k0M7lwKeIuVkaFoJxUjtuvoVapRhH1CAy3CdRKWtAwU
 
 
 
@@ -29,8 +29,8 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "admin_1@ifrs.edu.br",
-    "password": "admin123"
+    "email": "admin1@ifrs.com.br",
+    "password": "admin1_password"
 }
 
 ### Listar todos os pets (rota protegida, requer token de usuário com role "admin")
@@ -39,7 +39,7 @@ Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
 ### Listar os pets pelo ID (rota protegida, requer token de usuário com role "admin")
-GET {{baseURL}}/pets/protected/getByID/10
+GET {{baseURL}}/pets/protected/getByID/13
 Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
@@ -49,29 +49,29 @@ Content-Type: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
 {
-    "name": "Tron",
-    "age": 10,
-    "species": "virtual dog",
-    "size": "big",
-    "status": "available",
-    "description": "fast"
-}
-
-### Atualizar um pet existente (rota protegida, requer token de usuário com role "admin")
-PUT {{baseURL}}/pets/protected/update/10
-Content-Type: application/json
-Authorization: Bearer {{admin_Token_Ok}}
-
-{
-    "name": "Cluzinho",
-    "age": 10,
-    "species": "virtual dog",
+    "name": "dog_iso",
+    "age": 3,
+    "species": "virtual_dog",
     "size": "large",
     "status": "available",
     "description": "fast"
 }
 
+### Atualizar um pet existente (rota protegida, requer token de usuário com role "admin")
+PUT {{baseURL}}/pets/protected/update/18
+Content-Type: application/json
+Authorization: Bearer {{admin_Token_Ok}}
+
+{
+    "name": "Cuzz",
+    "age": 3,
+    "species": "virtual_bird",
+    "size": "small",
+    "status": "available",
+    "description": "expert on singing"
+}
+
 ### Deletar um pet existente (rota protegida, requer token de usuário com role "admin")
-DELETE {{baseURL}}/pets/protected/delete/1
+DELETE {{baseURL}}/pets/protected/delete/18
 Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}

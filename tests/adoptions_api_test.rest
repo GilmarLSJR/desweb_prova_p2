@@ -1,8 +1,8 @@
 @baseURL = http://localhost:3000
 
-@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG9wdGVyX2NsdUBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG9wdGVyIiwiaWF0IjoxNzUxMzk2NTk1LCJleHAiOjE3NTE0MDAxOTV9.WZ4oLwAvLviaqJ-hdk35OLZ57XtoqB6aEHziY_By2pw
+@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImVtYWlsIjoiYWRvcHRlcl90cm9uQGlmcnMuY29tLmJyIiwicm9sZSI6ImFkb3B0ZXIiLCJpYXQiOjE3NTE0MDMyOTEsImV4cCI6MTc1MTQwNjg5MX0.9t69Bxa45dZUmvmFSEhaCveRhCRknNT1B1_EMGjBx-E
 
-@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbl8xQGlmcnMuZWR1LmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxMzkzMzQwLCJleHAiOjE3NTEzOTY5NDB9._931jhKg_8dwQK4wHQso6CyqApcCM-iKpwSDegOo6DQ
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoiYWRtaW4xQGlmcnMuY29tLmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxNDAzMzM5LCJleHAiOjE3NTE0MDY5Mzl9.ZrLMDF-CpKeYvzLIn59OIoVzetQQlwCXTvcLICNfhUQ
 
 
 
@@ -17,8 +17,8 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "adopter_clu@ifrs.edu.br",
-    "password": "123456"
+    "email": "adopter_tron@ifrs.com.br",
+    "password": "hash_tron"
 }
 
 ### Criar uma nova adoção
@@ -27,8 +27,8 @@ Content-Type: application/json
 Authorization: Bearer {{adopter_Token_Ok}}
 
 {
-    "user_id": 1,
-    "pet_id":  1
+    "user_id": 20,
+    "pet_id":  17
 }
 
 
@@ -44,8 +44,8 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "admin_1@ifrs.edu.br",
-    "password": "admin123"
+    "email": "admin1@ifrs.com.br",
+    "password": "admin1_password"
 }
 
 ### Listar todas adoções (rota protegida, requer token de usuário com role "admin")
@@ -54,6 +54,6 @@ Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
 ### Listar todas adoções pelo ID (rota protegida, requer token de usuário com role "admin")
-GET {{baseURL}}/adoptions/protected/getByID/7
+GET {{baseURL}}/adoptions/protected/getByID/9
 Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}

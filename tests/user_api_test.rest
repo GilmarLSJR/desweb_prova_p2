@@ -1,8 +1,8 @@
 @baseURL = http://localhost:3000
 
-@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG9wdGVyXzFAaWZycy5lZHUuYnIiLCJyb2xlIjoiYWRvcHRlciIsImlhdCI6MTc1MTM5NDI4NSwiZXhwIjoxNzUxMzk3ODg1fQ.dzKHnUx3Uru0sZ-26ITTbtngN_uWEJWwnWcWEpShkG0
+@adopter_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoiYWRvcHRlcjFAaWZycy5jb20uYnIiLCJyb2xlIjoiYWRvcHRlciIsImlhdCI6MTc1MTQwNDAwMywiZXhwIjoxNzUxNDA3NjAzfQ.4VvMSEF7vaARVvCgYdPubx2vTMbw745Er_Anqjvnr10
 
-@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbl8xQGlmcnMuZWR1LmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxMzkzMzQwLCJleHAiOjE3NTEzOTY5NDB9._931jhKg_8dwQK4wHQso6CyqApcCM-iKpwSDegOo6DQ
+@admin_Token_Ok = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImVtYWlsIjoiYWRtaW4xQGlmcnMuY29tLmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxNDA0MDcxLCJleHAiOjE3NTE0MDc2NzF9.E467TbhY1kDryfTUv7IHEEaUTAPyUFQy_XhxMwVMOdA
 
 
 
@@ -17,9 +17,9 @@ POST {{baseURL}}/user/public/create
 Content-Type: application/json
 
 {
-    "name": "gilmar",
-    "email": "gilmar@ifrs.com.br",
-    "password": "hash_gilmar",
+    "name": "adopter1",
+    "email": "adopter1@ifrs.com.br",
+    "password": "adopter1_password",
     "phone": "010101010101",
     "role":"adopter"
 }
@@ -38,11 +38,23 @@ POST {{baseURL}}/user/public/create
 Content-Type: application/json
 
 {
-    "name": "admin_1",
-    "email": "admin_1@ifrs.edu.br",
-    "password": "hash_teste",
+    "name": "admin1",
+    "email": "admin1@ifrs.com.br",
+    "password": "admin1_password",
     "phone": "996821107",
     "role": "admin"
+}
+
+### Criar outro usuário
+POST {{baseURL}}/user/public/create
+Content-Type: application/json
+
+{
+    "name": "adopter_2",
+    "email": "adopter_2@ifrs.com.br",
+    "password": "adopter2_password",
+    "phone": "996821107",
+    "role": "adopter"
 }
 
 
@@ -58,8 +70,8 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "adopter_1@ifrs.edu.br",
-    "password": "123456"
+    "email": "adopter1@ifrs.com.br",
+    "password": "adopter1_password"
 }
 
 ### Login do usuário com senha incorreta (erro esperado)
@@ -67,23 +79,23 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "tron@ifrs.com.br",
+    "email": "adopter1@ifrs.com.br",
     "password": "hash_clu"
 }
 
 ### Listar os usuários pelo ID (rota protegida, requer token de usuário com role "adopter")
-GET {{baseURL}}/user/protected/getByID/1
+GET {{baseURL}}/user/protected/getByID/20
 Authorization: Bearer {{adopter_Token_Ok}}
 
 ### Atualizar dados do usuário pelo ID (rota protegida, requer token de usuário com role "adopter")
-PUT {{baseURL}}/user/protected/update/1
+PUT {{baseURL}}/user/protected/update/20
 Content-Type: application/json
 Authorization: Bearer {{adopter_Token_Ok}}
 
 {
     "name": "adopter_clu",
-    "email": "adopter_clu@ifrs.edu.br",
-    "password": "123456",
+    "email": "adopter_clu@ifrs.com.br",
+    "password": "hash_clu",
     "phone": "11001100",
     "role": "adopter"
 }
@@ -101,8 +113,8 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "admin_1@ifrs.edu.br",
-    "password": "admin123"
+    "email": "admin1@ifrs.com.br",
+    "password": "admin1_password"
 }
 
 ### Login do admin com senha incorreta (erro esperado)
@@ -110,7 +122,7 @@ POST {{baseURL}}/user/public/login
 Content-Type: application/json
 
 {
-    "email": "admin_1@ifrs.edu.br",
+    "email": "admin1@ifrs.edu.br",
     "password": "wrong_admin123"
 }
 
@@ -123,28 +135,28 @@ GET {{baseURL}}/user/protected/getAll
 Authorization: Bearer {{adopter_Token_Ok}}
 
 ### Listar os usuários pelo ID (rota protegida, requer token de usuário com role "admin")
-GET {{baseURL}}/user/protected/getByID/16
+GET {{baseURL}}/user/protected/getByID/20
 Authorization: Bearer {{admin_Token_Ok}}
 
 ### Atualizar dados do usuário pelo ID (rota protegida, requer token de usuário com role "admin")
-PUT {{baseURL}}/user/protected/update/13
+PUT {{baseURL}}/user/protected/update/20
 Content-Type: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
 {
-    "name": "tron",
-    "email": "tron11@ifrs.edu.br",
+    "name": "adopter_tron",
+    "email": "adopter_tron@ifrs.com.br",
     "password": "hash_tron",
     "phone": "11001100",
-    "role": "user"
+    "role": "adopter"
 }
 
 ### Deletar usuário pelo ID (rota protegida, requer token de usuário com role "admin")
-DELETE {{baseURL}}/user/protected/delete/13
+DELETE {{baseURL}}/user/protected/delete/22
 Accept: application/json
 Authorization: Bearer {{admin_Token_Ok}}
 
 ### Deletar usuário pelo ID (role incorreto - erro esperado)
-DELETE {{baseURL}}/user/protected/delete/11
+DELETE {{baseURL}}/user/protected/delete/19
 Accept: application/json
 Authorization: Bearer {{adopter_Token_Ok}}
